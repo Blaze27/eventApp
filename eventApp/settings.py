@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
-
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -75,8 +75,12 @@ WSGI_APPLICATION = 'eventApp.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'NAME': 'deg8evpm7r91es',
+        'USER' : 'rloauqweggbufh',
+        'PASSWORD' : '8a521e675afeb300701121243ba1224deffdf14ccd7e779ea09bb98c3976c7f5',
+        'HOST' : 'ec2-34-225-103-117.compute-1.amazonaws.com',
+        'PORT' : '5432', 
     }
 }
 
@@ -100,6 +104,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
@@ -118,3 +123,40 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+
+
+
+
+
+"""
+
+ALL ADDITIONS MADE BY DEVELOPER
+
+"""
+
+
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+# Adding additional middleware
+
+MIDDLEWARE += [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+]
+
+# Adding additional apps
+
+INSTALLED_APPS += [
+    'places.apps.PlacesConfig',
+    'django.contrib.gis',
+    'crispy_forms',
+]
+
+# Sensitive Information - Comment out while testing - Uncomment while deploying
+
+# SECRET_KEY = os.environ.get('SECRET_KEY')
+# DEBUG = os.environ.get('DEBUG')
