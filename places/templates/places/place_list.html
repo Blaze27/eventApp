@@ -1,0 +1,17 @@
+{% extends "base_generic.html" %}
+
+{%block content%}
+<h1>All Places</h1>
+  {% if place_list %}
+  <ul>
+    {% for place in place_list %}
+      <li>
+        {% comment %} <a href="{{ book.get_absolute_url }}">{{ book.title }}</a> ({{book.author}}) {% endcomment %}
+        <a href="{{ place.get_absolute_url }}">{{ place.name }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+    <p>There are no places to view. Please add some places</p>
+  {% endif %} 
+{%endblock%}

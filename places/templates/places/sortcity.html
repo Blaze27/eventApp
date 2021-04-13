@@ -1,0 +1,14 @@
+{% extends "base_generic.html" %}
+
+{% block content%}
+<h3> List of Cities to Select From: </h3>
+ <div class="container my-4">
+    <ul>
+        {% for place in distinct_cities %}
+        <li class="my-4">
+            <a href="{% url 'instance-city-place' place.city %}">{{place.city}}</a>
+        </li>
+        {% endfor %}
+    </ul>
+  </div>
+{% endblock%}

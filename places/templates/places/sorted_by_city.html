@@ -1,0 +1,17 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+
+
+<div class="container">
+    <ul>
+        {% for place in list_of_place %}
+        <li>
+            <a href="{% url 'place-detail' place.pk %}">{{place}}</a>
+        </li>
+
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock %}

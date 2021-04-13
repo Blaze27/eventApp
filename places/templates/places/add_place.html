@@ -1,0 +1,39 @@
+{% extends 'base_generic.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+
+{% load leaflet_tags %}
+{% leaflet_css %}
+{% leaflet_js %}
+
+<div class="container">
+<h4>Add a new place:</h4>
+
+  <form  method="POST">
+    {% csrf_token %}
+    {{form|crispy}}
+    {% leaflet_map "main" callback="map_init" %}
+    <div class="container text-center">
+    <button type="submit" class="btn btn-outline-dark">Add Place</button>
+    </div>
+  </form>
+
+</div>
+
+{% comment %} Map rendering {% endcomment %}
+
+
+<script type="text/javascript">
+    function map_init(map, options) {
+        // get point lat and lon
+        var lon = "{{ place.location.x }}";
+        var lat = "{{ city.location.y }}";
+
+        // zoom to point & add it to map
+        map.setView([lat, lon], 12);
+        L.marker([lat, lon]).addTo(map);
+    }
+</script>
+{% endblock %}
