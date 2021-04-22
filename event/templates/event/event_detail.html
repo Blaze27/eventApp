@@ -1,0 +1,46 @@
+{% extends 'base_generic.html' %}
+
+{% block title %} Event Detail {% endblock title %}
+
+{% block content %}
+
+<div class="container mx-auto" style="width: 1000px;">
+
+    <h1 class="mt-4 px-5"> Event Name : {{event.title}}</h1>
+
+    <h4 class="px-5"> Place : {{ event.place }}</h4>
+    
+    <h4 class="px-5">Tags :</h4>
+    <div class="container px-5">
+        <ul class="px-5">
+            {% for tag in event.tags.all %}
+                <h5><li class="px-4"style="list-style-type:none;">{{ tag }} </li></h5>
+            {% endfor %}
+        </ul>
+    </div>
+    
+    
+    <h4 class="px-5">created-by : {{ event.created_by }}</h4>
+{% comment %} {{ event.eventtime_set.all }} {% endcomment %}
+    <h4 class="px-5">Time :</h4>
+    <ul class="px-5">
+    {% for time in event.eventtime_set.all %}
+        <h5><li class="px-4" style="list-style-type:none;"> {{ time }}</li> </h5>    
+    
+    {% endfor %}
+</ul>
+
+</div>
+
+<div class="container text-center px-5 mt-5">
+    <a href="{% url 'event:all-events' %}" class="text-decoration-none">
+      <button type="button" class="btn btn-sm btn-outline-secondary">Back</button>
+    </a>
+    <a href="{% url 'event:edit-event' event.id %}" class="text-decoration-none">
+      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+    </a>
+  </div>
+
+
+
+{% endblock content %}
