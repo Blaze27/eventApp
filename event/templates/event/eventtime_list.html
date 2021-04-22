@@ -1,0 +1,58 @@
+{% extends 'base_generic.html' %}
+
+{% block title %}Sort Event{% endblock title %}
+
+{% block content %}
+
+<div class="container mx-auto">
+    <div class="row container mx-auto" style="width: 430px;">
+        <div class="col">
+            <div class="card card-body">
+    
+                <form method="GET">
+                    {{ filter.form }}
+    
+                <button class="btn btn-primary" type="submit">Search</button>
+              </form>
+    
+            </div>
+        </div>
+        
+    </div>
+    <hr>
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Event Title</th>
+            <th scope="col">Event Date</th>
+            <th scope="col">Event Time</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for eventtime in filter.qs %}
+          <tr>
+            <th scope="row"> <a href="{% url 'event:event-detail' pk=eventtime.event.pk %}" class="text-decoration-none"> {{ eventtime.event }} </a> </th>
+            <td>{{ eventtime.event_date }}</td>
+            <td>{{ eventtime.event_time }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+
+
+
+</div>
+
+
+
+{% endblock content %}
+
+<!-- {% for timing in filter.qs %}
+        <tr>
+            <td>{{timing.event}}</td>
+            <td>{{timing.event_date}}</td>
+            <td>{{timing.event_time}}</td>
+            <td><a href="{% url 'event:event-detail' pk=timing.event.pk %}"><button type="button" class="btn btn-primary">Detail</button></a></td>
+        </tr>
+        {% endfor %} -->
