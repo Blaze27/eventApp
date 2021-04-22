@@ -28,7 +28,7 @@ def add_place(request):
             x = form.save(commit=False)
             x.save()
             messages.success(request, 'Place added successfully.')
-            return redirect('index')
+            return redirect('event:create-event')
     else:
         form = PlaceForm()
     
