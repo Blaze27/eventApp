@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
+from django.contrib.messages import constants as messages
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -20,10 +21,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '*6&py9d_(h6yz1yhmb!&e!$nrf81)(-ja=h2%vw#_qe62ubpu4'
+# SECRET_KEY = '*6&py9d_(h6yz1yhmb!&e!$nrf81)(-ja=h2%vw#_qe62ubpu4'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -54,7 +55,7 @@ ROOT_URLCONF = 'eventApp.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -76,10 +77,10 @@ WSGI_APPLICATION = 'eventApp.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'deg8evpm7r91es',
-        'USER' : 'rloauqweggbufh',
-        'PASSWORD' : '8a521e675afeb300701121243ba1224deffdf14ccd7e779ea09bb98c3976c7f5',
-        'HOST' : 'ec2-34-225-103-117.compute-1.amazonaws.com',
+        'NAME': 'my_db',
+        'USER' : 'rahul',
+        'PASSWORD' : 'admin',
+        'HOST' : '127.0.0.1',
         'PORT' : '5432', 
     }
 }
@@ -110,7 +111,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 
@@ -151,12 +152,18 @@ MIDDLEWARE += [
 # Adding additional apps
 
 INSTALLED_APPS += [
+    'event.apps.EventConfig',
     'places.apps.PlacesConfig',
     'django.contrib.gis',
     'crispy_forms',
+    'taggit',
+    'leaflet',
+    'django_filters',
 ]
+
+LOGIN_REDIRECT_URL = ''
 
 # Sensitive Information - Comment out while testing - Uncomment while deploying
 
-# SECRET_KEY = os.environ.get('SECRET_KEY')
-# DEBUG = os.environ.get('DEBUG')
+SECRET_KEY = os.environ.get('SECRET_KEY')
+DEBUG = os.environ.get('DEBUG')
