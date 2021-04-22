@@ -1,0 +1,33 @@
+{% extends 'base_generic.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}Add Event{% endblock title %}
+
+{% block content %}
+
+{% load leaflet_tags %}
+
+{% leaflet_js plugins="forms" %}
+{% leaflet_css plugins="forms" %}
+
+<div class="container mx-auto">
+
+<form  method="POST">
+    {% csrf_token %}
+    {{event_form|crispy}}
+
+    {{event_time_form|crispy}}
+    <div class="container text-center"> 
+    <a href="{% url 'places:add_place' %}">
+        <button type="button" class="btn btn-outline-dark mx-4">Add a New Place</button>
+    </a>
+    <button type="submit" class="btn btn-outline-dark mx-4">Add Event</button>
+    <button type="reset" value="Reset" class="btn btn-outline-dark mx-4">Reset</button>
+    </div>
+  </form>
+
+</div>
+
+
+{% endblock content %}
